@@ -10,11 +10,12 @@ import br.com.rsinet.HUB_BDD.pageFactory.BuscarLupa_Page;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
 import br.com.rsinet.HUB_BDD.utility.print;
-import cucumber.api.java.es.Dado;
-import cucumber.api.java.it.Quando;
+import cucumber.api.java.After;
+import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
+import cucumber.api.java.pt.Quando;
 
-public class BuscaLupaSucesso {
+public class BuscaLupa {
 
 	private WebDriver driver;
 	private BuscarLupa_Page buscarLupa;
@@ -46,8 +47,8 @@ public class BuscaLupaSucesso {
 		buscarLupa.pesquisaProdutoTela(driver, nomeProduto);
 	}
 
-	@Quando("^valida se o produto selecionado e o esperado \"([^\"]*)\"$")
-	public void valida_se_o_produto_selecionado_e_o_esperado(String nomeProduto) throws Throwable {
+	@Então("^busca realizada com sucesso produto encontrado \"([^\"]*)\"$")
+	public void busca_realizada_com_sucesso_produto_encontrado(String nomeProduto) throws Throwable {
 		String resposta = buscarLupa.resultadoProduto();
 		System.out.println(resposta);
 		System.out.println(nomeProduto.toUpperCase());
@@ -55,11 +56,18 @@ public class BuscaLupaSucesso {
 
 	}
 
-	@Então("^busca realizada com sucesso produto encontrado$")
-	public void busca_realizada_com_sucesso_produto_encontrado() throws Throwable {
+	@Então("^valida mensagem de produto não encontrado \"([^\"]*)\"$")
+	public void valida_mensagem_de_produto_não_encontrado(String nomeProduto) throws Throwable {
+		String resposta = buscarLupa.label_Respota();
+		System.out.println(resposta);
+		System.out.println("No results for " + "\"" + nomeProduto + "\"");
+		Assert.assertTrue("Produto: " + nomeProduto + "  não encontrado",
+				resposta.equals("No results for " + "\"" + nomeProduto + "\""));
+	}
+
+	@After
+	public void fecharBrowser() throws Exception {
 		print.takeSnapShot("testeBuscaLupaSucesso");
 		DriverFactory.closeBrowser(driver);
 	}
-
-
 }

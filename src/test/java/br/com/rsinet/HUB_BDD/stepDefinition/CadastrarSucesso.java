@@ -2,7 +2,7 @@ package br.com.rsinet.HUB_BDD.stepDefinition;
 
 import cucumber.api.java.pt.Quando;
 
-public class CadastrarSucessoTest {
+public class CadastrarSucesso {
 
 	@Quando("^Preenche o seu usuário de login <username>$")
 	public void preenche_o_seu_usuário_de_login_username() throws Throwable {
