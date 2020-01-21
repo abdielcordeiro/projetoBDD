@@ -10,7 +10,6 @@ import br.com.rsinet.HUB_BDD.pageFactory.BuscarLupa_Page;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
 import br.com.rsinet.HUB_BDD.utility.print;
-import cucumber.api.java.After;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
@@ -53,7 +52,8 @@ public class BuscaLupa {
 		System.out.println(resposta);
 		System.out.println(nomeProduto.toUpperCase());
 		Assert.assertTrue("Produto encontrado com sucesso", resposta.equals(nomeProduto.toUpperCase()));
-
+		print.takeSnapShot("testeBuscaLupaFalha");
+		DriverFactory.closeBrowser(driver);
 	}
 
 	@Então("^valida mensagem de produto não encontrado \"([^\"]*)\"$")
@@ -63,10 +63,6 @@ public class BuscaLupa {
 		System.out.println("No results for " + "\"" + nomeProduto + "\"");
 		Assert.assertTrue("Produto: " + nomeProduto + "  não encontrado",
 				resposta.equals("No results for " + "\"" + nomeProduto + "\""));
-	}
-
-	@After
-	public void fecharBrowser() throws Exception {
 		print.takeSnapShot("testeBuscaLupaSucesso");
 		DriverFactory.closeBrowser(driver);
 	}

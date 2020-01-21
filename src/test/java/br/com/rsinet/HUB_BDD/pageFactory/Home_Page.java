@@ -19,7 +19,7 @@ public class Home_Page {
 	@FindBy(how = How.XPATH, using = "/html/body/login-modal/div/div/div[3]/a[2]")
 	private WebElement bnt_Cadastrar;
 
-	public void executaHomeCadastro(WebDriver driver) {
+	public void bntClicarLogin(WebDriver driver) {
 		PageFactory.initElements(driver, Home_Page.class);
 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -28,9 +28,15 @@ public class Home_Page {
 		WebElement bntLogar = wait.until(ExpectedConditions.elementToBeClickable(bnt_Login));
 		bntLogar.click();
 
+	}
+
+	public void bntClicarCadastro(WebDriver driver) {
+		PageFactory.initElements(driver, Home_Page.class);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		WebElement bntCadastrar = wait.until(ExpectedConditions.elementToBeClickable(bnt_Cadastrar));
 		bntCadastrar.sendKeys(Keys.ENTER);
-
 	}
 
 }
