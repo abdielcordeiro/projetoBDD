@@ -8,9 +8,12 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-
-		features = "classpath:feature", glue = "br.com.rsinet.HUB_BDD.stepDefinition", plugin = {
-				"pretty" }, snippets = SnippetType.CAMELCASE, monochrome = true, dryRun = false)
+		features = "classpath:feature", glue = "br.com.rsinet.HUB_BDD.stepDefinition", plugin = {"pretty"},
+		snippets = SnippetType.CAMELCASE,
+		monochrome = true,
+		dryRun = false,
+		tags = {"@Sucesso" }
+)
 
 public class TestRunner {
 

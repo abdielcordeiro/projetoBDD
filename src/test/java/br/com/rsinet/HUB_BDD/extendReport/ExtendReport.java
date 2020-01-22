@@ -17,6 +17,12 @@ public class ExtendReport {
 	public static ExtentReports extent;
 
 
+//	public String getReportConfigPath(){
+//		 String reportConfigPath = properties.getProperty("reportConfigPath");
+//		 if(reportConfigPath!= null) return reportConfigPath;
+//		 else throw new RuntimeException("Report Config Path not specified in the Configuration.properties file for the Key:reportConfigPath");
+//		}
+
 	public static ExtentReports setExtent(String nome) {
 		htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/reports/"+nome+".html");
 
