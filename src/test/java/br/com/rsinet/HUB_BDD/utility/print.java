@@ -19,7 +19,7 @@ public class print extends DriverFactory {
 
 		TakesScreenshot scrShot = ((TakesScreenshot) driver);
 		File srcFile = scrShot.getScreenshotAs(OutputType.FILE);
-		String imageFileDir = "C://Users//abdiel.cordeiro//Documents//Projetos//eclipse-workspace//projetoBDD//target//print//";
+		String imageFileDir = "./target/print/";
 		FileUtils.copyFile(srcFile, new File(imageFileDir, nomeFoto));
 
 	}
