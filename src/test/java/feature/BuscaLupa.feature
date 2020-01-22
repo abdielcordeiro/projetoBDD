@@ -9,12 +9,12 @@ Contexto:
 
 @Test1
   Cenário: Buscar um produto na lupa com Sucesso
-    E Digita o nome do tipo do produto "Speaker"
+    E Digita o nome do tipo do produto
     E fecha a lista de sugestões 
-    E seleciona um produto da lista "Bose Soundlink Bluetooth Speaker III"
-    Então busca realizada com sucesso produto encontrado "Bose Soundlink Bluetooth Speaker III"
+    E seleciona um produto da lista
+    Então busca realizada com sucesso produto encontrado
 
 @Test2
   Cenário: Buscar um produto que não exista
-    E Digita o nome do tipo do produto "mochila"
-    Então valida mensagem de produto não encontrado "mochila"
+    E Digita o nome do tipo do produto inexistente 
+    Então valida mensagem de produto não encontrado
