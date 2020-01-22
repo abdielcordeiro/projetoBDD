@@ -8,7 +8,8 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "classpath:feature", glue = "br.com.rsinet.HUB_BDD.stepDefinition", plugin = {"pretty"},
+		features = "classpath:feature", glue = "br.com.rsinet.HUB_BDD.stepDefinition",
+		plugin = {"pretty", "html:target/cucumber-reports" },
 		snippets = SnippetType.CAMELCASE,
 		monochrome = true,
 		dryRun = false,
