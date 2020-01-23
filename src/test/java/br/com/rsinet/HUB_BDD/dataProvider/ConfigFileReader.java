@@ -24,7 +24,7 @@ public class ConfigFileReader {
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Configuration.properties not found at " + propertyFilePath);
+			throw new RuntimeException("Configuration.properties não encontrado em: " + propertyFilePath);
 		}
 	}
 
@@ -33,7 +33,7 @@ public class ConfigFileReader {
 		if (driverPath != null)
 			return driverPath;
 		else
-			throw new RuntimeException("driverPath not specified in the Configuration.properties file.");
+			throw new RuntimeException("driverPath não especificado no arquivo Configuration.properties.");
 	}
 
 	public long getImplicitlyWait() {
@@ -41,7 +41,7 @@ public class ConfigFileReader {
 		if (implicitlyWait != null)
 			return Long.parseLong(implicitlyWait);
 		else
-			throw new RuntimeException("implicitlyWait not specified in the Configuration.properties file.");
+			throw new RuntimeException("implicitWait não especificado no arquivo Configuration.properties.");
 	}
 
 	public String getApplicationUrl() {
@@ -49,7 +49,7 @@ public class ConfigFileReader {
 		if (url != null)
 			return url;
 		else
-			throw new RuntimeException("url not specified in the Configuration.properties file.");
+			throw new RuntimeException("URL não especificado no arquivo Configuration.properties.");
 	}
 
 	public String getReportConfigPath() {
@@ -58,7 +58,7 @@ public class ConfigFileReader {
 			return reportConfigPath;
 		else
 			throw new RuntimeException(
-					"Report Config Path not specified in the Configuration.properties file for the Key:reportConfigPath");
+					"Caminho de configuração de relatório não especificado no arquivo Configuration.properties da chave:reportConfigPath");
 	}
 
 }

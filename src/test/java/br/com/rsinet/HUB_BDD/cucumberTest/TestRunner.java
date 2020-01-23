@@ -15,14 +15,14 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "classpath:feature",
-		glue = "br.com.rsinet.HUB_BDD.stepDefinition",
-		plugin = {"com.cucumber.listener.ExtentCucumberFormatter: target/cucumber-reports/MyReport.html" },
+		features = "classpath:feature", // configuração do pacote que contém as features
+		glue = "br.com.rsinet.HUB_BDD.stepDefinition", // configuração do pacote que contém minhas step
+		plugin = {"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/resultados.html" }, // Plugin responsavel por criar o arquivo do reporte
 		snippets = SnippetType.CAMELCASE,
 		monochrome = true,
 		dryRun = false,
-		tags = {"@Falha, @Sucesso"}
-)
+		tags = {"@Falha, @Sucesso"} // Configurações das anotações que devem ser executadas
+) // Configurações do Cucumber
 
 public class TestRunner {
 	@AfterClass
