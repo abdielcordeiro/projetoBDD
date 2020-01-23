@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import br.com.rsinet.HUB_BDD.dataProvider.ConfigFileReader;
 import br.com.rsinet.HUB_BDD.pageFactory.BuscarLupa_Page;
 import br.com.rsinet.HUB_BDD.utility.Constant;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory;
@@ -20,12 +21,14 @@ public class BuscaClique {
 
 	private WebDriver driver;
 	private BuscarLupa_Page buscarLupa;
+	ConfigFileReader configFileReader = new ConfigFileReader();
 
 	@Dado("^O usuário esta na pagina home buscar produto$")
 	public void o_usuário_esta_na_pagina_home_buscar_produto() throws Throwable {
-		driver = DriverFactory.openBrowser(DriverType.CHROME, Constant.URL);
-		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Pesquisa");
-		buscarLupa = PageFactory.initElements(driver, BuscarLupa_Page.class);
+		driver = DriverFactory.openBrowser(DriverType.CHROME, Constant.URL); // Definição do navegador e da URL desejada
+		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Pesquisa"); // Definição do arquivo do
+																								// excel e da planilha
+		buscarLupa = PageFactory.initElements(driver, BuscarLupa_Page.class); // Inicialização da Page
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 
@@ -66,9 +69,10 @@ public class BuscaClique {
 		/*
 		 * Mensagem deseja que seja de falha, pois a cadastrada é diferente da quantidade adicionada no carrinho
 		 */
-		Assert.assertEquals("Quantidade Cadastrada diferente da pedida", buscarLupa.respostaQnt(), 20);
+		int quantidade = buscarLupa.respostaQnt();
 		print.takeSnapShot("testeBuscaClickFalha");
 		DriverFactory.closeBrowser(driver);
+		Assert.assertEquals("Quantidade Cadastrada diferente da pedida", quantidade, 20);
 	}
 
 }

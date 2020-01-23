@@ -60,7 +60,7 @@ public class BuscarLupa_Page {
 	}
 
 	public void bntX(WebDriver driver) throws InterruptedException {
-		WebDriverWait wait = new WebDriverWait(driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement bntX = wait.until(ExpectedConditions.elementToBeClickable(bnt_X));
 		bntX.click();
 	}

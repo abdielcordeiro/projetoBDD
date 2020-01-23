@@ -30,7 +30,7 @@ public class BuscaLupa {
 
 	@Quando("^Clica no botão da lupa$")
 	public void clica_no_botão_da_lupa() throws Throwable {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		buscarLupa.bntLupa();
 	}
 
@@ -39,15 +39,6 @@ public class BuscaLupa {
 		buscarLupa.bntX(driver);
 	}
 
-	@Então("^busca realizada com sucesso produto encontrado \"([^\"]*)\"$")
-	public void busca_realizada_com_sucesso_produto_encontrado(String nomeProduto) throws Throwable {
-		String resposta = buscarLupa.resultadoProduto();
-		System.out.println(resposta);
-		System.out.println(nomeProduto.toUpperCase());
-		Assert.assertTrue("Produto encontrado com sucesso", resposta.equals(nomeProduto.toUpperCase()));
-		print.takeSnapShot("testeBuscaLupaFalha");
-		DriverFactory.closeBrowser(driver);
-	}
 
 	@Quando("^Digita o nome do tipo do produto$")
 	public void digita_o_nome_do_tipo_do_produto() throws Throwable {
