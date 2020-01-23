@@ -6,12 +6,12 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.rsinet.HUB_BDD.dataProvider.ConfigFileReader;
 import br.com.rsinet.HUB_BDD.pageFactory.BuscarLupa_Page;
 import br.com.rsinet.HUB_BDD.utility.Constant;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
 import br.com.rsinet.HUB_BDD.utility.ExcelUtils;
+import br.com.rsinet.HUB_BDD.utility.MassaDados;
 import br.com.rsinet.HUB_BDD.utility.print;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
@@ -21,42 +21,41 @@ public class BuscaClique {
 
 	private WebDriver driver;
 	private BuscarLupa_Page buscarLupa;
-	ConfigFileReader configFileReader = new ConfigFileReader();
+	private MassaDados dados;
 
 	@Dado("^O usuário esta na pagina home buscar produto$")
 	public void o_usuário_esta_na_pagina_home_buscar_produto() throws Throwable {
 		driver = DriverFactory.openBrowser(DriverType.CHROME, Constant.URL); // Definição do navegador e da URL desejada
+
 		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Pesquisa"); // Definição do arquivo do
-																								// excel e da planilha
+		dados = new MassaDados();
+
 		buscarLupa = PageFactory.initElements(driver, BuscarLupa_Page.class); // Inicialização da Page
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
 
 	@Quando("^Clicar na categoria desejada$")
 	public void clicar_na_categoria_desejada() throws Throwable {
-		String produto = ExcelUtils.getCellData(1, Constant.Produto);
-		buscarLupa.preencherPorduto(produto);
+		buscarLupa.preencherPorduto(dados.getTipoProduto());
 	}
 
 	@Quando("^selecionar um produto$")
 	public void selecionar_um_produto() throws Throwable {
-		String nomeProduto = ExcelUtils.getCellData(1, Constant.nomeProduto);
-		buscarLupa.pesquisaProdutoTela(driver, nomeProduto);
+		buscarLupa.pesquisaProdutoTela(driver, dados.getNomeProduto());
 	}
 
 	@Então("^Valida se o produto foi selecionado corretamente$")
 	public void valida_se_o_produto_foi_selecionado_corretamente() throws Throwable {
-		String nomeProduto = ExcelUtils.getCellData(1, Constant.nomeProduto);
-		buscarLupa.pesquisaProdutoTela(driver, nomeProduto);
+		buscarLupa.pesquisaProdutoTela(driver, dados.getNomeProduto());
 
-		Assert.assertTrue("Produto encontrado com sucesso", nomeProduto.equals(nomeProduto));
+		Assert.assertTrue("Produto encontrado com sucesso", dados.getNomeProduto().toUpperCase().equals(buscarLupa.labeProduto()));
 		print.takeSnapShot("testeBuscaClickSucesso");
 		DriverFactory.closeBrowser(driver);
 	}
 
 	@Quando("^manda varios produtos para o carrinho$")
 	public void manda_varios_produtos_para_o_carrinho() throws Throwable {
-		for (int i = 0; i < 19; i++) {
+		for (int i = 0; i < dados.getQuantidadeProduto(); i++) {
 			buscarLupa.bntAddProduto();
 		}
 		buscarLupa.bntAddCarinho();
@@ -67,12 +66,12 @@ public class BuscaClique {
 		buscarLupa.bntEntrarCarinho();
 
 		/*
-		 * Mensagem deseja que seja de falha, pois a cadastrada é diferente da quantidade adicionada no carrinho
+		 * É esperado que a quantidade que foi selecionada seja menor que a quantidade pedida
 		 */
 		int quantidade = buscarLupa.respostaQnt();
 		print.takeSnapShot("testeBuscaClickFalha");
 		DriverFactory.closeBrowser(driver);
-		Assert.assertEquals("Quantidade Cadastrada diferente da pedida", quantidade, 20);
+		Assert.assertTrue("Quantidade Cadastrada diferente da pedida", quantidade < dados.getQuantidadeProduto());
 	}
 
 }

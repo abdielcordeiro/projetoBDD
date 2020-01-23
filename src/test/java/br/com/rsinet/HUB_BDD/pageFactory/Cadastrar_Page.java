@@ -51,6 +51,7 @@ public class Cadastrar_Page {
 	@FindBy(how = How.NAME, using = "countryListboxRegisterPage")
 	private WebElement input_country;
 
+
 	public void preencherCadastro(String userName, String password, String userEmail, String phoneNumber,
 			String fristName, String lastName, String country, String cep, String city, String state, String address) {
 
@@ -77,4 +78,5 @@ public class Cadastrar_Page {
 	public String respostaCadastro() {
 		return resposta.getText();
 	}
+
 }

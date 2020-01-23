@@ -3,10 +3,8 @@ package br.com.rsinet.HUB_BDD.stepDefinition;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,6 +15,7 @@ import br.com.rsinet.HUB_BDD.utility.Constant;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory;
 import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
 import br.com.rsinet.HUB_BDD.utility.ExcelUtils;
+import br.com.rsinet.HUB_BDD.utility.MassaDados;
 import br.com.rsinet.HUB_BDD.utility.print;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
@@ -27,11 +26,14 @@ public class Cadastrar {
 	private WebDriver driver;
 	private Cadastrar_Page cadastrar;
 	private Home_Page home;
+	private MassaDados dados;
 
 	@Dado("^O usuário esta na pagina home para cadastro$")
 	public void o_usuário_esta_na_pagina_home_para_cadastro() throws Throwable {
 		driver = DriverFactory.openBrowser(DriverType.CHROME, Constant.URL);
+
 		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Cadastro");
+		dados = new MassaDados();
 
 		home = PageFactory.initElements(driver, Home_Page.class);
 		cadastrar = PageFactory.initElements(driver, Cadastrar_Page.class);
@@ -51,59 +53,17 @@ public class Cadastrar {
 	@Quando("^preenche formulario de cadastro sucesso$")
 	public void preenche_formulario_de_cadastro_sucesso() throws Throwable {
 
-		String userName = ExcelUtils.getCellData(1, Constant.UserName);
-
-		String password = ExcelUtils.getCellData(1, Constant.UserPass);
-
-		String userEmail = ExcelUtils.getCellData(1, Constant.Email);
-
-		String phoneNumber = ExcelUtils.getCellData(1, Constant.PhoneNumber);
-
-		String fristName = ExcelUtils.getCellData(1, Constant.FristName);
-
-		String lastName = ExcelUtils.getCellData(1, Constant.LastName);
-
-		String pais = ExcelUtils.getCellData(1, Constant.Country);
-
-		String cep = ExcelUtils.getCellData(1, Constant.PostalCode);
-
-		String city = ExcelUtils.getCellData(1, Constant.City);
-
-		String state = ExcelUtils.getCellData(1, Constant.State);
-
-		String address = ExcelUtils.getCellData(1, Constant.Address);
-
-		cadastrar.preencherCadastro(userName, password, userEmail, phoneNumber, fristName, lastName, pais, cep, city,
-				state, address);
+		cadastrar.preencherCadastro(dados.getUserName(), dados.getPassword(), dados.getEmail(), dados.getPhoneNumber(),
+				dados.getFristName(), dados.getLastName(), dados.getCountry(), dados.getPostalCode(), dados.getCity(),
+				dados.getState(), dados.getAddress());
 	}
 
 	@Quando("^preenche formulario de cadastro falha$")
 	public void preenche_formulario_de_cadastro_falha() throws Throwable {
 
-		String userName = ExcelUtils.getCellData(1, Constant.UserNameFalha);
-
-		String password = ExcelUtils.getCellData(1, Constant.UserPass);
-
-		String userEmail = ExcelUtils.getCellData(1, Constant.Email);
-
-		String phoneNumber = ExcelUtils.getCellData(1, Constant.PhoneNumber);
-
-		String fristName = ExcelUtils.getCellData(1, Constant.FristName);
-
-		String lastName = ExcelUtils.getCellData(1, Constant.LastName);
-
-		String pais = ExcelUtils.getCellData(1, Constant.Country);
-
-		String cep = ExcelUtils.getCellData(1, Constant.PostalCode);
-
-		String city = ExcelUtils.getCellData(1, Constant.City);
-
-		String state = ExcelUtils.getCellData(1, Constant.State);
-
-		String address = ExcelUtils.getCellData(1, Constant.Address);
-
-		cadastrar.preencherCadastro(userName, password, userEmail, phoneNumber, fristName, lastName, pais, cep, city,
-				state, address);
+		cadastrar.preencherCadastro(dados.getUserNameFalha(), dados.getPassword(), dados.getEmail(),
+				dados.getPhoneNumber(), dados.getFristName(), dados.getLastName(), dados.getCountry(),
+				dados.getPostalCode(), dados.getCity(), dados.getState(), dados.getAddress());
 
 	}
 
@@ -120,12 +80,10 @@ public class Cadastrar {
 		String resposta = driver.getCurrentUrl();
 
 		System.out.println(resposta);
-		Assert.assertTrue("Usuário cadastrado com sucesso!!",
-				resposta.equals("http://www.advantageonlineshopping.com/#/"));
+		Assert.assertTrue("Usuário cadastrado com sucesso!!", resposta.equals(Constant.URL));
 
-		WebElement element = driver.findElement(By.xpath("//*[@id=\"speakersImg\"]"));
-		WebDriverWait wait1 = new WebDriverWait(driver, 20);
-		wait1.until(ExpectedConditions.visibilityOf(element));
+		home.esperaHome(driver);
+
 		print.takeSnapShot("testeComSucesso");
 		DriverFactory.closeBrowser(driver);
 	}

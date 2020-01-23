@@ -36,7 +36,7 @@ public class ExcelUtils {
 
 	}
 
-	public static String getCellData(int RowNum, int ColNum) throws Exception {
+	public static String getCellDataString(int RowNum, int ColNum) throws Exception {
 
 		try {
 
@@ -47,8 +47,26 @@ public class ExcelUtils {
 			return CellData;
 
 		} catch (Exception e) {
+			e.printStackTrace();
+			return "O tipo do valor esta incorreto. É esperado uma String";
 
-			return "";
+		}
+
+	}
+
+	public static int getCellDataNumber(int RowNum, int ColNum) throws Exception {
+
+		try {
+
+			Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
+
+			int CellData = (int) Cell.getNumericCellValue();
+
+			return CellData;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
 
 		}
 

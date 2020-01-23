@@ -27,8 +27,9 @@ public class Constant {
 	/*
 	 * Dados da pesquisa por Lupa Sucesso
 	 */
-	public static final int Produto = 0;
-	public static final int nomeProduto = 1;
+	public static final int TipoProduto = 0;
+	public static final int NomeProduto = 1;
+	public static final int QuantidadeProduto = 4;
 
 	/*
 	 * Dados da pesquisa por Lupa Falha

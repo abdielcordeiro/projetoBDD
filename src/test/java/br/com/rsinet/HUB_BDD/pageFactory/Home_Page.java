@@ -19,6 +19,14 @@ public class Home_Page {
 	@FindBy(how = How.XPATH, using = "/html/body/login-modal/div/div/div[3]/a[2]")
 	private WebElement bnt_Cadastrar;
 
+	@FindBy(how = How.XPATH, using = "//*[@id=\\\"speakersImg\\\"]")
+	private WebElement esperaPageHome;
+
+	public void esperaHome(WebDriver driver) {
+		WebDriverWait wait1 = new WebDriverWait(driver, 20);
+		wait1.until(ExpectedConditions.visibilityOf(this.esperaPageHome));
+	}
+
 	public void bntClicarLogin(WebDriver driver) {
 		PageFactory.initElements(driver, Home_Page.class);
 
