@@ -24,7 +24,7 @@ public class Home_Page {
 
 	public void esperaHome(WebDriver driver) {
 		WebDriverWait wait1 = new WebDriverWait(driver, 20);
-		wait1.until(ExpectedConditions.visibilityOf(this.esperaPageHome));
+		wait1.until(ExpectedConditions.visibilityOf(esperaPageHome));
 	}
 
 	public void bntClicarLogin(WebDriver driver) {

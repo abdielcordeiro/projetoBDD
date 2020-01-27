@@ -14,7 +14,6 @@ import br.com.rsinet.HUB_BDD.utility.ExcelUtils;
 import br.com.rsinet.HUB_BDD.utility.MassaDados;
 import br.com.rsinet.HUB_BDD.utility.print;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
@@ -25,17 +24,11 @@ public class BuscaLupa {
 	private BuscarLupa_Page buscarLupa;
 	private MassaDados dados;
 
-	@Before
-	public void inicializa() throws Exception {
+	@Dado("^Que o usuário esteja na tela principal$")
+	public void que_o_usuário_esteja_na_tela_principal() throws Throwable {
 
 		/* Método que inicia o navegador e passa a URL */
 		driver = DriverFactory.openBrowser(DriverType.CHROME, "http://www.advantageonlineshopping.com/#/");
-
-	}
-
-
-	@Dado("^Que o usuário esteja na tela principal$")
-	public void que_o_usuário_esteja_na_tela_principal() throws Throwable {
 
 		/*
 		 * Metodo que instancia a o local e a planilha que seram utilizadas junto com a
