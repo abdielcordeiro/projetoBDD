@@ -13,6 +13,8 @@ import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
 import br.com.rsinet.HUB_BDD.utility.ExcelUtils;
 import br.com.rsinet.HUB_BDD.utility.MassaDados;
 import br.com.rsinet.HUB_BDD.utility.print;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
@@ -23,11 +25,25 @@ public class BuscaLupa {
 	private BuscarLupa_Page buscarLupa;
 	private MassaDados dados;
 
+	@Before
+	public void inicializa() throws Exception {
+
+		/* Método que inicia o navegador e passa a URL */
+		driver = DriverFactory.openBrowser(DriverType.CHROME, "http://www.advantageonlineshopping.com/#/");
+
+	}
+
+
 	@Dado("^Que o usuário esteja na tela principal$")
 	public void que_o_usuário_esteja_na_tela_principal() throws Throwable {
-		driver = DriverFactory.openBrowser(DriverType.CHROME, "http://www.advantageonlineshopping.com/#/");
-		buscarLupa = PageFactory.initElements(driver, BuscarLupa_Page.class);
+
+		/*
+		 * Metodo que instancia a o local e a planilha que seram utilizadas junto com a
+		 * aba da planilha
+		 */
 		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Pesquisa");
+
+		buscarLupa = PageFactory.initElements(driver, BuscarLupa_Page.class);
 		dados = new MassaDados();
 	}
 
@@ -60,19 +76,27 @@ public class BuscaLupa {
 	@Então("^busca realizada com sucesso produto encontrado$")
 	public void busca_realizada_com_sucesso_produto_encontrado() throws Throwable {
 
+		/* Método que valida se a mensagem de produto não encontrado esta retornando */
 		Assert.assertTrue("Produto encontrado com sucesso",
 				buscarLupa.resultadoProduto().equals(dados.getNomeProduto().toUpperCase()));
 		print.takeSnapShot("testeBuscaLupaFalha");
-		DriverFactory.closeBrowser(driver);
 	}
 
 	@Então("^valida mensagem de produto não encontrado$")
 	public void valida_mensagem_de_produto_não_encontrado() throws Throwable {
 
+		/*
+		 * Método que valida se o produto buscado na lupa é o mesmo que esta sendo
+		 * apresentado
+		 */
 		Assert.assertTrue("Produto: " + dados.getNomeProdutoFalha() + "  não encontrado",
 				buscarLupa.label_Respota().contains("No results for " + "\"" + dados.getNomeProdutoFalha() + "\""));
 		print.takeSnapShot("testeBuscaLupaSucesso");
-		DriverFactory.closeBrowser(driver);
+
 	}
 
+	@After
+	public void finaliza() {
+		DriverFactory.closeBrowser(driver);
+	}
 }

@@ -62,7 +62,7 @@ public class MassaDados {
 	}
 
 	public String getNomeProdutoFalha() throws Exception {
-		return ExcelUtils.getCellDataString(linhaFalha, Constant.nomeProdutoFalha);
+		return ExcelUtils.getCellDataString(linhaFalha, Constant.NomeProdutoFalha);
 	}
 
 	public Integer getQuantidadeProduto() throws Exception {

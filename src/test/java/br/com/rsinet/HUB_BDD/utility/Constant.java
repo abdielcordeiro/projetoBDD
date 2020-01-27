@@ -34,6 +34,6 @@ public class Constant {
 	/*
 	 * Dados da pesquisa por Lupa Falha
 	 */
-	public static final int nomeProdutoFalha = 1;
+	public static final int NomeProdutoFalha = 1;
 
 }

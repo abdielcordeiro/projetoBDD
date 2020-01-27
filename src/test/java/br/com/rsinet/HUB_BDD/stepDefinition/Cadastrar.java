@@ -17,6 +17,8 @@ import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
 import br.com.rsinet.HUB_BDD.utility.ExcelUtils;
 import br.com.rsinet.HUB_BDD.utility.MassaDados;
 import br.com.rsinet.HUB_BDD.utility.print;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
@@ -28,15 +30,27 @@ public class Cadastrar {
 	private Home_Page home;
 	private MassaDados dados;
 
-	@Dado("^O usuário esta na pagina home para cadastro$")
-	public void o_usuário_esta_na_pagina_home_para_cadastro() throws Throwable {
+	@Before
+	public void inicializa() throws Exception {
+
+		/* Método que inicia o navegador e passa a URL */
 		driver = DriverFactory.openBrowser(DriverType.CHROME, Constant.URL);
 
-		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Cadastro");
-		dados = new MassaDados();
+	}
 
+	@Dado("^O usuário esta na pagina home para cadastro$")
+	public void o_usuário_esta_na_pagina_home_para_cadastro() throws Throwable {
+
+		/*
+		 * Metodo que instancia a o local e a planilha que seram utilizadas junto com a
+		 * aba da planilha
+		 */
+		ExcelUtils.setExcelFile(Constant.Path_TestData + Constant.File_TestData, "Cadastro");
+
+		dados = new MassaDados();
 		home = PageFactory.initElements(driver, Home_Page.class);
 		cadastrar = PageFactory.initElements(driver, Cadastrar_Page.class);
+
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
@@ -53,6 +67,7 @@ public class Cadastrar {
 	@Quando("^preenche formulario de cadastro sucesso$")
 	public void preenche_formulario_de_cadastro_sucesso() throws Throwable {
 
+		/* Metodo que inseri nos campos os valores retornados da planilha de excel */
 		cadastrar.preencherCadastro(dados.getUserName(), dados.getPassword(), dados.getEmail(), dados.getPhoneNumber(),
 				dados.getFristName(), dados.getLastName(), dados.getCountry(), dados.getPostalCode(), dados.getCity(),
 				dados.getState(), dados.getAddress());
@@ -61,6 +76,7 @@ public class Cadastrar {
 	@Quando("^preenche formulario de cadastro falha$")
 	public void preenche_formulario_de_cadastro_falha() throws Throwable {
 
+		/* Metodo que inseri nos campos os valores retornados da planilha de excel */
 		cadastrar.preencherCadastro(dados.getUserNameFalha(), dados.getPassword(), dados.getEmail(),
 				dados.getPhoneNumber(), dados.getFristName(), dados.getLastName(), dados.getCountry(),
 				dados.getPostalCode(), dados.getCity(), dados.getState(), dados.getAddress());
@@ -77,30 +93,29 @@ public class Cadastrar {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.urlToBe("http://www.advantageonlineshopping.com/#/"));
 
-		String resposta = driver.getCurrentUrl();
-
-		System.out.println(resposta);
-		Assert.assertTrue("Usuário cadastrado com sucesso!!", resposta.equals(Constant.URL));
+		/* Método que valida se esta na URL correta depois de cadastrar */
+		Assert.assertTrue("Usuário cadastrado com sucesso!!", driver.getCurrentUrl().equals(Constant.URL));
 
 		home.esperaHome(driver);
-
 		print.takeSnapShot("testeComSucesso");
-		DriverFactory.closeBrowser(driver);
 	}
 
 	@Então("^valida mensagem de usuário incorreto$")
 	public void valida_mensagem_de_usuário_incorreto() throws Throwable {
 
-		String resposta = cadastrar.respostaCadastro();
-		System.out.println("Teste mensagem: " + resposta);
-
+		/* Método que valida se o o usuário digitou mais que 15 caracteres no usuário */
 		Assert.assertTrue("Login de acesso invalido, mais caracteres do que o permitido",
-				resposta.equals("Use maximum 15 character"));
+				cadastrar.respostaCadastro().equals("Use maximum 15 character"));
 
+		/* Método para rolar a tela para cima para printar o erro */
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("scrollBy(0, -500)", "");
 
 		print.takeSnapShot("testeCadastroFalha");
+	}
+
+	@After
+	public void finaliza() {
 		DriverFactory.closeBrowser(driver);
 	}
 }
