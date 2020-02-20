@@ -4,7 +4,7 @@ public class Constant {
 
 	public static final String URL = "http://www.advantageonlineshopping.com/#/";
 
-	public static final String Path_TestData = "..\\projetoBDD\\src\\test\\java\\br\\com\\rsinet\\HUB_BDD\\testData\\";
+	public static final String Path_TestData = "C:\\Users\\abdiel.cordeiro\\git\\projetoBDD\\src\\main\\java\\br\\com\\rsinet\\hub\\bdd\\TestData\\";
 
 	public static final String File_TestData = "BancoDados.xlsx";
 
