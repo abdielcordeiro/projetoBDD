@@ -1,4 +1,4 @@
-package br.com.rsinet.HUB_BDD.pageFactory;
+package br.com.rsinet.hub.bdd.PageFactory;
 
 import java.util.concurrent.TimeUnit;
 

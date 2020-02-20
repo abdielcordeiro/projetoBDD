@@ -1,4 +1,4 @@
-package br.com.rsinet.HUB_BDD.cucumberTest;
+package br.com.rsinet.hub.bdd.CucumberTest;
 
 import java.io.File;
 
@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 import com.cucumber.listener.Reporter;
 
-import br.com.rsinet.HUB_BDD.managers.FileReaderManager;
+import br.com.rsinet.hub.bdd.Managers.FileReaderManager;
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;

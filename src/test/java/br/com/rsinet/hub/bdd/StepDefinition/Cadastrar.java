@@ -1,4 +1,4 @@
-package br.com.rsinet.HUB_BDD.stepDefinition;
+package br.com.rsinet.hub.bdd.StepDefinition;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,14 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import br.com.rsinet.HUB_BDD.pageFactory.Cadastrar_Page;
-import br.com.rsinet.HUB_BDD.pageFactory.Home_Page;
-import br.com.rsinet.HUB_BDD.utility.Constant;
-import br.com.rsinet.HUB_BDD.utility.DriverFactory;
-import br.com.rsinet.HUB_BDD.utility.DriverFactory.DriverType;
-import br.com.rsinet.HUB_BDD.utility.ExcelUtils;
-import br.com.rsinet.HUB_BDD.utility.MassaDados;
-import br.com.rsinet.HUB_BDD.utility.print;
+import br.com.rsinet.hub.bdd.PageFactory.Cadastrar_Page;
+import br.com.rsinet.hub.bdd.PageFactory.Home_Page;
+import br.com.rsinet.hub.bdd.Utility.Constant;
+import br.com.rsinet.hub.bdd.Utility.DriverFactory;
+import br.com.rsinet.hub.bdd.Utility.ExcelUtils;
+import br.com.rsinet.hub.bdd.Utility.MassaDados;
+import br.com.rsinet.hub.bdd.Utility.print;
+import br.com.rsinet.hub.bdd.Utility.DriverFactory.DriverType;
 import cucumber.api.java.After;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;

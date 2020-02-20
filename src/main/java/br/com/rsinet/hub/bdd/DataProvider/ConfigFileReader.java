@@ -1,4 +1,4 @@
-package br.com.rsinet.HUB_BDD.dataProvider;
+package br.com.rsinet.hub.bdd.DataProvider;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

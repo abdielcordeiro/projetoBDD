@@ -1,6 +1,6 @@
-package br.com.rsinet.HUB_BDD.managers;
+package br.com.rsinet.hub.bdd.Managers;
 
-import br.com.rsinet.HUB_BDD.dataProvider.ConfigFileReader;
+import br.com.rsinet.hub.bdd.DataProvider.ConfigFileReader;
 
 public class FileReaderManager {
 
